@@ -119,22 +119,18 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。</p>
+<p>在《JavaScript高级程序设计》里第一次出现对this对象详细介绍的地方是P114页，讲函数内部属性的时候提到了函数内部的特殊对象this，<strong>this引用的是函数执行环境对象</strong>。而在我对JS里只有执行环境而没有块级作用域这一概念还了解的懵懵懂懂的时候，突然冒出来的this对象让我瞬间懵逼了。</p>
+<p>书中给出的例子是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">window.color = &quot;red&quot;;</div><div class="line">var o = &#123; color: &quot;blue&quot; &#125;;</div><div class="line"></div><div class="line">function sayColor()&#123;</div><div class="line">    alert(this.color);</div><div class="line">&#125;</div><div class="line"></div><div class="line">sayColor();</div><div class="line"></div><div class="line">o.sayColor = sayColor;</div><div class="line">o.sayColor();</div></pre></td></tr></table></figure>
+<p>对于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function sayColor()&#123;</div><div class="line">    alert(this.color);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>里的this我一直很奇怪，明明出现在function中，而<strong>每个函数都有自己的执行环境</strong>（P73页），那么为何出现在sayColor函数里的this却是引用的是全局对象window呢？（那个时候大概脑子瓦特了）</p>
+<p>后来在学习后面的内容时频繁的用到了this，<br>我再回去看，就茅塞（cè）顿开了，暂时的把对象当类理解就好了嘛。因为第一个sayColor是在全局中被调用的，就是window对象调用的相当于window.sayColor(),所以this指的是window对象，相应的o.sayColor()调用，那么this指的是o对象。</p>
+<p>突然发现好简单哦。</p>
+<p>下面把在JS中所有用到this的地方都列出来</p>
+<p>未完</p>
 
-          
-            <div class="entry-summary" style="margin-left:0;">
-            虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。
-
-在《JavaScript高级程序设计》里第一次出现对this对象详细介绍的地方是P114页，讲函数内部属性的时候提到了函数内部的特殊对象this，this引用的是函数执行环境对象。而在我对JS里只有执行环境而没有块级作用域这一概念还了解的懵懵懂懂的时候，突然冒出来的this对象让我瞬间懵逼了。
-书中给出的例子是这样的：
-1234567891011window.color = &quot;red&quot;;var o = &#123; color: &quot;blue&quot; &#125;...
-          
-
-        
-          <p class="article-more-link">
-            <a href="/2016/10/03/JS高级程序设计/#more">阅读全文</a>
-          </p>
-        </div>
       
     </div>
     <footer class="entry-meta entry-footer">
