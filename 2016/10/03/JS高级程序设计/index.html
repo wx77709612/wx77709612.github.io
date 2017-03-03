@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/03/JS高级程序设计/index.html">
 <meta property="og:site_name" content="Xenia wanna get better">
 <meta property="og:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。">
-<meta property="og:updated_time" content="2017-03-03T09:04:44.759Z">
+<meta property="og:updated_time" content="2017-03-03T09:09:53.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》心得&领悟--this对象">
 <meta name="twitter:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。">
@@ -130,7 +130,7 @@
 <p>里的this我一直很奇怪，明明出现在function中，而<strong>每个函数都有自己的执行环境</strong>（P73页），那么为何出现在sayColor函数里的this却是引用的是全局对象window呢？（那个时候大概脑子瓦特了）</p>
 <p>后来在学习后面的内容时频繁的用到了this，<br>我再回去看，就茅塞（cè）顿开了，暂时的把对象当类理解就好了嘛。因为第一个sayColor是在全局中被调用的，就是window对象调用的相当于window.sayColor(),所以this指的是window对象，相应的o.sayColor()调用，那么this指的是o对象。</p>
 <p>突然发现好简单哦。</p>
-<p>下面把在JS中所有用到this的地方都列出来：</p>
+<p>下面把在JS中所有用到this的地方都列出来</p>
 <p>未完</p>
 
       
