@@ -54,7 +54,9 @@
 
           <h1 class="site-title">
             
-              <a href="/" title="Xenia wanna get better" rel="home"> Xenia wanna get better </a>
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 10px;"  width="124px" height="124px" alt="Hike News" src=" /css/images/avatar.jpg">
+              </a>
             
           </h1>
 
@@ -126,7 +128,7 @@
 <p>对于</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function sayColor()&#123;</div><div class="line">    alert(this.color);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>里的this我一直很奇怪，明明出现在function中，而<strong>每个函数都有自己的执行环境</strong>（P73页），那么为何出现在sayColor函数里的this却是引用的是全局对象window呢？（那个时候大概脑子瓦特了）</p>
-<p>后来在学习后面的内容时频繁的用到了this，<br>我再回去看，就茅塞（cè）顿开了，暂时的把对象当类理解就好了嘛。因为第一个sayColor是在全局中被调用的，就是window对象调用的相当于window.sayColor(),所以this指的是window对象，相应的o.sayColor()调用，那么this指的是o对象。</p>
+<p>后来在学习后面的内容时频繁的用到了this，我再回去看，就茅塞（cè）顿开了，暂时的把对象当类理解就好了嘛。因为第一个sayColor是在全局中被调用的，就是window对象调用的相当于window.sayColor(),所以this指的是window对象，相应的o.sayColor()调用，那么this指的是o对象。</p>
 <p>突然发现好简单哦。</p>
 <p>下面把在JS中所有用到this的地方都列出来</p>
 <p>未完</p>
