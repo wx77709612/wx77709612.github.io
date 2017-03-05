@@ -9,16 +9,16 @@
   
   
   
-  <meta name="description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，">
+  <meta name="description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript高级程序设计》心得&领悟--this对象">
 <meta property="og:url" content="http://yoursite.com/2016/10/03/JS--this/index.html">
 <meta property="og:site_name" content="Xenia wanna get better">
-<meta property="og:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，">
-<meta property="og:updated_time" content="2017-03-04T07:35:49.384Z">
+<meta property="og:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。">
+<meta property="og:updated_time" content="2017-03-05T08:17:12.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》心得&领悟--this对象">
-<meta name="twitter:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，">
+<meta name="twitter:description" content="虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。">
   
     <link rel="alternate" href="/atom.xml" title="Xenia wanna get better" type="application/atom+xml">
   
@@ -75,7 +75,7 @@
                     
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Kategorien</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
                     
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
                     
@@ -121,8 +121,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，<a id="more"></a>只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。</p>
-<p>在《JavaScript高级程序设计》里第一次出现对this对象详细介绍的地方是P114页，讲函数内部属性的时候提到了函数内部的特殊对象this，<strong>this引用的是函数执行环境对象</strong>。而在我对JS里只有执行环境而没有块级作用域这一概念还了解的懵懵懂懂的时候，突然冒出来的this对象让我瞬间懵逼了。</p>
+        <p>虽然之前用C++编程的时候用过this对象，但是当时囫囵吞枣没有深入理解，只记得this指向的是类的当前实例。然而JS里没有类的概念，全是“对象”，这让我在初学JS的时候真的有些摸不着头脑。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>在《JavaScript高级程序设计》里第一次出现对this对象详细介绍的地方是P114页，讲函数内部属性的时候提到了函数内部的特殊对象this，<strong>this引用的是函数执行环境对象</strong>。而在我对JS里只有执行环境而没有块级作用域这一概念还了解的懵懵懂懂的时候，突然冒出来的this对象让我瞬间懵逼了。</p>
 <p>书中给出的例子是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">window.color = &quot;red&quot;;</div><div class="line">var o = &#123; color: &quot;blue&quot; &#125;;</div><div class="line"></div><div class="line">function sayColor()&#123;</div><div class="line">    alert(this.color);</div><div class="line">&#125;</div><div class="line"></div><div class="line">sayColor();</div><div class="line"></div><div class="line">o.sayColor = sayColor;</div><div class="line">o.sayColor();</div></pre></td></tr></table></figure>
 <p>对于</p>
@@ -174,7 +174,7 @@
 <nav id="article-nav">
   
     <a href="/2016/10/05/JS--sort/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           《JavaScript高级程序设计》心得&amp;领悟--sort()排序
@@ -194,7 +194,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-      <ol class="nav">None</ol>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol>
     
     </div>
   </aside>

@@ -9,13 +9,19 @@
   
   
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="最近看书看到了闭包，嗯，着实让我扎心。写发总结整理一下思路。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript高级程序设计》心得&领悟--闭包">
 <meta property="og:url" content="http://yoursite.com/2016/10/07/JS--闭包/index.html">
 <meta property="og:site_name" content="Xenia wanna get better">
-<meta property="og:updated_time" content="2017-03-04T07:25:53.435Z">
+<meta property="og:description" content="最近看书看到了闭包，嗯，着实让我扎心。写发总结整理一下思路。">
+<meta property="og:image" content="http://yoursite.com/C:\Users\Administrator\Desktop\Ch07\QQ截图20170305152328.png">
+<meta property="og:image" content="http://yoursite.com/C:\Users\Administrator\Desktop\Ch07\1.png">
+<meta property="og:updated_time" content="2017-03-05T08:17:14.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》心得&领悟--闭包">
+<meta name="twitter:description" content="最近看书看到了闭包，嗯，着实让我扎心。写发总结整理一下思路。">
+<meta name="twitter:image" content="http://yoursite.com/C:\Users\Administrator\Desktop\Ch07\QQ截图20170305152328.png">
   
     <link rel="alternate" href="/atom.xml" title="Xenia wanna get better" type="application/atom+xml">
   
@@ -72,7 +78,7 @@
                     
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Kategorien</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
                     
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
                     
@@ -118,11 +124,42 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>最近看书看到了闭包，嗯，着实让我扎心。写发总结整理一下思路。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>首先是闭包的<strong>概念</strong>：<strong>闭包是指有权访问另一个函数作用域中的变量的函数</strong>。</p>
+<p>首先我明确了闭包是<strong>函数</strong>。</p>
+<p>创建闭包的常见方式，<strong>就是在一个函数内部创建另一个函数</strong>。（P178）</p>
+<p>而<strong>匿名函数</strong>是指<strong>创建一个函数并将它赋值给变量</strong>（如functionName）。</p>
+<p>给发书上的例子（找不到哪一章有原型了，纯手敲有错莫怪）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function createComparisonFuction(propertyName)&#123;</div><div class="line">            </div><div class="line">            return function (object1,object2)&#123;</div><div class="line">                var value1 = object1[propertyName];</div><div class="line">                var value2 = object2[propertyName];</div><div class="line">                </div><div class="line">                if (value1 &lt; value2)&#123;</div><div class="line">                    return -1;</div><div class="line">                &#125;else if (value1 &gt; value2)&#123;</div><div class="line">                    return 1;</div><div class="line">                &#125;else &#123;</div><div class="line">                    return 0;</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>在createComparisonFuction()函数里，它的返回值是一个<strong>匿名函数</strong>，这个匿名函数在其内部访问了传给createComparisonFuction()的参数propertyName，因为它需要用到外层的propertyName，所以它外部函数createComparisonFuction()的作用域链（见第4章）就成为了内部匿名函数作用域链的一环。当这个匿名函数作为返回值返回，并赋给其他变量然后被调用的时候，它仍然可以去访问在它外部的propertyName变量，甚至是arguments数组等<strong>活动对象</strong>。不过，要注意的是，这个匿名函数内部的活动对象始终处于第作用域链的第一位，而其外部函数的活动对象，则处于第二位，再外层第三位……依次类推，直到最末尾的全局执行环境。</p>
+<p>看下面这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var compare = createComparisonFuction(&quot;name&quot;);</div><div class="line">var result = compare(&#123; name: &quot;Nicholas&quot; &#125;, &#123;name: &quot;Greg&quot; &#125;);</div></pre></td></tr></table></figure>
+<p>第一行代码就调用了createComparisonFuction()，并给它传入了属性值，然后返回了一个匿名函数，然后这个createComparisonFuction()函数就狗带了，它的执行环境的作用域链也同样销毁了，但它的活动对象会轻易的狗带吗？并没有那么简单，因为刚刚才返回的那个匿名函数还在，他们要追随这个匿名函数的脚步，继续留在内存中，直到匿名函数也被销毁，createComparisonFuction()的活动对象才会you jump，I jump。</p>
+<p>但是我在这里一直有个疑问，当createComparisonFuction(“name”)返回给compare的时候不会直接调用它内部的匿名函数吗？所以我alert了一下compare，结果警告框里给出匿名函数的全部代码，如下图</p>
+<p><img src="C:\Users\Administrator\Desktop\Ch07\QQ截图20170305152328.png" alt="image"></p>
+<p>其实因为在JS中函数也是可以作为<strong>值</strong>来使用，形如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var compare = createComparisonFuction(&quot;name&quot;);</div></pre></td></tr></table></figure>
+<p>这样的赋值，只是把compare指向了createComparisonFuction(“name”)返回的匿名函数而已，如要真正调用还需要加一对圆括号来调用如 compare()， 关于函数的还有很多可以讲的地方,有空会另写一片有关函数的文章。</p>
+<p>书上有给出作用域链的关系图，在这里我就不画了。</p>
+<p>至此我都觉得闭包还挺好理解的，没什么大的问题。直到书上给出了一个例子。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function createFunctions()&#123;</div><div class="line">               var result = new Array();</div><div class="line">               </div><div class="line">               for (var i=0; i &lt; 10; i++)&#123;</div><div class="line">                   result[i] = function()&#123;</div><div class="line">                       return i;</div><div class="line">                   &#125;;</div><div class="line">               &#125;</div><div class="line">               </div><div class="line">               return result;</div><div class="line">           &#125;</div><div class="line">           </div><div class="line">           var funcs = createFunctions();</div><div class="line">           </div><div class="line">           //every function outputs 10</div><div class="line">           for (var i=0; i &lt; funcs.length; i++)&#123;</div><div class="line">               document.write(funcs[i]() + &quot;&lt;br /&gt;&quot;);</div><div class="line">           &#125;</div></pre></td></tr></table></figure>
+<p>这个函数会返回一个数组，这个函数的意思应该是想把自己的索引值返回，数组中0号位里放0，,1号位放1，以此类推。不过书上说不，小傻瓜，每个函数都返回10，因为每个函数的作用域链中都保存着createFunctions()的活动对象，所以它们引用都是同一个变量i。所以我就天真的以为result数组里面有一堆10。</p>
+<p><img src="C:\Users\Administrator\Desktop\Ch07\1.png" alt="image"></p>
+<p>当时我真的是想不出来为什么它会是一堆10啊，i再怎么不变，当它还年轻的时候访问的那些数组元素，怎么就会一下变成10了呢？</p>
+<p>后来双茅塞（ce四声那个）顿开了，result[i]后面的function()只是创建了，并没有被立即调用。所以每一个result[i]在函数里只是指向了一个匿名函数。直到循环完了，i成10了，再调用的时候每个都返回的是10。解决的方法很简单，循环的时候立即执行呗。</p>
+<p>接下来this对象又来惹事了。书上给出了这么一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> var name = &quot;The Window&quot;;</div><div class="line"></div><div class="line">        var object = &#123;</div><div class="line">            name : &quot;My Object&quot;,</div><div class="line">            getNameFunc : function()&#123;</div><div class="line">                return function () &#123;</div><div class="line">                    return this.name;</div><div class="line">                &#125;;</div><div class="line">            &#125;</div><div class="line">        &#125;；</div><div class="line"></div><div class="line">alert(object.getNameFunc()());</div></pre></td></tr></table></figure>
+<p>最后显示的是“Thw Window”，这回我知道了，估计又是函数调用的问题，我猜想是这样的。首先呢，object对象调用了它的一个方法，这个方法返回了一个函数这个时候就没object什么事情了，再加圆括号就是在全局环境下直接调用这个函数了。代码写成这样可能好理解一些。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">getName = object.getNameFunc();</div><div class="line">getName();</div></pre></td></tr></table></figure>
+<p>这样就显而易见了，闭包函数是在全局环境中调用了，所以其中的this指的是全局对象name也没什么好奇怪的了。当然书中也提出了解决方法（见P182-183），我就不赘述了。</p>
+
       
     </div>
     <footer class="entry-meta entry-footer">
       
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
       
       
         
@@ -158,7 +195,7 @@
   
   
     <a href="/2016/10/05/JS--sort/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">《JavaScript高级程序设计》心得&amp;领悟--sort()排序</div>
     </a>
   
@@ -173,7 +210,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-      <ol class="nav">None</ol>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol>
     
     </div>
   </aside>
