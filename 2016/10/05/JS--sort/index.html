@@ -9,13 +9,19 @@
   
   
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="初学JS中的Array对象的时候一定会学到它的sort()方法.该方法与Array拥有的其他方法有些不一样，因为它的参数中是可以传function的。这与C++等语言不同，而且像sort()这一形式可以往方法中传function的函数在JS中并不少见。
+因为Array对象出现的比较早，所以对Sort的排序方法很是疑惑。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript高级程序设计》心得&领悟--sort()排序">
 <meta property="og:url" content="http://yoursite.com/2016/10/05/JS--sort/index.html">
 <meta property="og:site_name" content="Xenia wanna get better">
-<meta property="og:updated_time" content="2017-03-04T07:25:51.773Z">
+<meta property="og:description" content="初学JS中的Array对象的时候一定会学到它的sort()方法.该方法与Array拥有的其他方法有些不一样，因为它的参数中是可以传function的。这与C++等语言不同，而且像sort()这一形式可以往方法中传function的函数在JS中并不少见。
+因为Array对象出现的比较早，所以对Sort的排序方法很是疑惑。">
+<meta property="og:updated_time" content="2017-03-19T13:57:00.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》心得&领悟--sort()排序">
+<meta name="twitter:description" content="初学JS中的Array对象的时候一定会学到它的sort()方法.该方法与Array拥有的其他方法有些不一样，因为它的参数中是可以传function的。这与C++等语言不同，而且像sort()这一形式可以往方法中传function的函数在JS中并不少见。
+因为Array对象出现的比较早，所以对Sort的排序方法很是疑惑。">
   
     <link rel="alternate" href="/atom.xml" title="Xenia wanna get better" type="application/atom+xml">
   
@@ -118,11 +124,34 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>初学JS中的Array对象的时候一定会学到它的sort()方法.该方法与Array拥有的其他方法有些不一样，因为它的参数中是可以传function的。这与C++等语言不同，而且像sort()这一形式可以往方法中传function的函数在JS中并不少见。</p>
+<p>因为Array对象出现的比较早，所以对Sort的排序方法很是疑惑。</p>
+<a id="more"></a>
+<hr>
+<p>首先是sort()的定义。很简单这个函数就是给数组对象中的元素排序的。</p>
+<p>听起来简单，但是实际上它还是有些小复杂的。</p>
+<p>首先sort排序的时候是不管数组元素是什么类型的，它将统统按照String的类型来排序，也就是说即使我输入的是1,2,3,4这样的Number类型的元素，它也会按照其转义成String类型的值来排序，也就是按字符的编码值来排序。这意味着什么呢？这意味着排出来的结果可能跟我们所设想的结果不一样。</p>
+<p>比如以下这段代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var myArray = [0,1,5,10,15];</div><div class="line">myArray.sort(); //结果为:0,1,10,15,5</div></pre></td></tr></table></figure></p>
+<p>它的结果和我们所预想的0,1,5,10,15,不一样，这是因为5的字符编码比起其他数字的字符编码来说较为靠后。</p>
+<p>那么如何解决这个问题呢？JS为sort()方法设置了一个参数。而这个参数又是一个方法。其写法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">myArray.sort(function(a,b)&#123;</div><div class="line">    return a-b;    </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>莫名其妙吧？反正我是挺莫名其妙的，a和b又是哪里来的？这个是什么意思啊我的天。</p>
+<p>其实其含义是这样的：用sort()方法的参数方法来作为排序的依据。a和b分别代表数组中也就是上述myArray中的要比较的两个元素，当a-b大于0的时候，也就是a&gt;b的时候，要将a放在b后面，每次比较数组中元素的时候都会调用这个比较函数，这是升序排列。而要进行降序排列，调换a、b顺序即可，即return b-a就好了。这个方法就是采用了冒牌排序。</p>
+<p>但是说归说，从前没见过这种调用的方式。还是不清楚这个是如何传入参数的。知道我再网上找到一个大神写的工作原理代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Array.prototype.sort = function(fn)&#123;</div><div class="line">   for(var i=0,len=this.length;i&lt;len;i++)&#123;</div><div class="line">       var result = fn(this[i],this[i+1]);</div><div class="line">       if(result==1) //换位置</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这些代码是完不成真的sort()方法的功能的，但是这个前辈写的意思很直观。终于让我明白的参数的传入方法，当然这里面用到了蛋疼的this</p>
+<p>明白以后心情就舒畅多了，知道我又遇到了二维数组。。。</p>
+<p>其实二维或者多维数组要按某一列元素大小来排序挺简单的，同样的也是要用sort方法，但是在调用的时候传入要以这种形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">myArray.sort(function(a[x],b[x])&#123;</div><div class="line">    return a[x]-b[x];</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>x代表的是要排序的列。</p>
+<p>好了我对sort的疑问到此基本上就没有了。不知道未来还会有什么奇怪的问题出现。</p>
+
       
     </div>
     <footer class="entry-meta entry-footer">
       
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
       
       
         
