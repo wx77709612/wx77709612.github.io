@@ -96,6 +96,64 @@
         
           <section id="main">
   
+    <article id="post-Matlab edge函数&#39;canny&#39;部分代码阅读"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/07/Matlab edge函数'canny'部分代码阅读/">article</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/04/07/Matlab edge函数'canny'部分代码阅读/" class="article-date">
+	  <time datetime="2017-04-06T23:43:31.000Z" itemprop="datePublished">April 7, 2017</time>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+          
+            <div class="entry-summary" style="margin-left:0;">
+            开头的废话
+最近毕设遇上瓶颈了，因为要处理的图像边缘信息量十足，所以读文献的时候，经常会遇到要使用canny边缘提取的时候，因为canny无论是在opencv还是在Matlab中的都是被封装好的，所以每次都是直接使用，基本上没有细研究过它的代码。现在发现不研究不行啦，用到的地方太多辣！所以就不废话开始读了。至于Canny的原理和过程就不再赘述了，网上一大堆。这里主要是读Matlab的代码，因为毕设主题都是用的Matlab。Matlab版本2015a
+canny边缘检测的调用方法
+
+canny边缘检测在Matlab中的调用方法有3种，以下均来自Matlab中edge.m文件注释部分。
+BW = EDGE(I,’canny’)最简单的调用方法，一切采用默认值。I为图像（以后不再提及）。
+B...
+          
+
+        
+          <p class="article-more-link">
+            <a href="/2017/04/07/Matlab edge函数'canny'部分代码阅读/#more">Continue Reading →</a>
+          </p>
+        </div>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/数字图像处理/">数字图像处理</a>
+
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-JS--闭包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -367,6 +425,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="/2017/04/07/Matlab edge函数'canny'部分代码阅读/">article</a></h6>
+              <span>April 7, 2017</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="/2016/10/07/JS--闭包/">《JavaScript高级程序设计》心得&amp;领悟--闭包</a></h6>
               <span>October 7, 2016</span>
             </div>
@@ -406,7 +476,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">3</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数字图像处理/">数字图像处理</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -422,7 +492,7 @@
     <h3 class="widget-title">Archiv</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
